@@ -1,0 +1,5 @@
+.env
+AWS secrets.txt
+ncr_ride_bookings.csv
+requirements.txt
+lambda_pkg

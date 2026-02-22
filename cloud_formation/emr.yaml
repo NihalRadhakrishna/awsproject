@@ -1,0 +1,64 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: EMR Cluster for Uber Kafka Batch Pipeline
+
+Parameters:
+  SubnetId:
+    Type: String
+    Default: subnet-0ce30b4050e4de58f
+    Description: Subnet where EMR will launch
+
+  KeyName:
+    Type: AWS::EC2::KeyPair::KeyName
+    Default: kafka-cli-intance-key-pair
+    Description: EC2 Key Pair
+
+Resources:
+  EMRCluster:
+    Type: AWS::EMR::Cluster
+    Properties:
+      Name: uber-batch-emr
+      ReleaseLabel: emr-7.12.0
+
+      Applications:
+        - Name: Spark
+        - Name: Hadoop
+
+      LogUri: s3://uber-project1.1/emr-logs/
+
+      Instances:
+        Ec2SubnetId: !Ref SubnetId
+        Ec2KeyName: !Ref KeyName
+        KeepJobFlowAliveWhenNoSteps: true
+
+        EmrManagedMasterSecurityGroup: sg-084d601fd67d5b1f0
+        EmrManagedSlaveSecurityGroup: sg-08a48a9b09535d0f1
+
+        AdditionalMasterSecurityGroups:
+          - sg-038ad66862d1dddae
+
+        AdditionalSlaveSecurityGroups:
+          - sg-038ad66862d1dddae
+
+        MasterInstanceGroup:
+          InstanceCount: 1
+          InstanceType: m5.xlarge
+          Market: ON_DEMAND
+
+        CoreInstanceGroup:
+          InstanceCount: 2
+          InstanceType: m5.xlarge
+          Market: ON_DEMAND
+
+      ServiceRole: EMR_DefaultRole
+      JobFlowRole: EMR_EC2_DefaultRole
+      VisibleToAllUsers: true
+      EbsRootVolumeSize: 30
+
+      Tags:
+        - Key: Project
+          Value: UberBatch
+
+Outputs:
+  EMRClusterId:
+    Description: EMR Cluster ID
+    Value: !Ref EMRCluster
