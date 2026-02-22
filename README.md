@@ -98,7 +98,7 @@ This enables efficient analytical queries using:
 | Service | Purpose |
 |----------|----------|
 | AWS IAM | Roles & permissions |
-| AWS KMS | Encryption (Kafka, S3, Secrets) |
+| AWS KMS | Encryption (Kafka, Secrets) |
 | AWS Secrets Manager | Kafka authentication credentials |
 | Amazon CloudWatch | Logs & monitoring |
 
