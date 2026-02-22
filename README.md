@@ -10,6 +10,8 @@ The system ingests ride data via HTTP, processes it in real time for alerts, and
 
 # 🏗 Architecture Overview
 
+![Architecture Diagram](Images/architecture_diagram.png)
+
 ## 🔹 Ingestion Layer
 
 1. Ride data is sent via HTTP to **Amazon API Gateway**
@@ -24,6 +26,8 @@ The system ingests ride data via HTTP, processes it in real time for alerts, and
 - Processed in real-time using **Apache Spark on Amazon EMR (Streaming Cluster)**
 - Business metrics are evaluated (e.g., surge triggers, anomalies)
 - Alerts are sent via **Amazon SNS (Email Notifications)**
+
+![Email alert](Images/email_alert.png)
 
 This layer handles:
 - Low-latency processing
@@ -41,6 +45,10 @@ Instead of storing raw files separately, it:
 - Uses **Amazon MWAA (Managed Airflow)** for orchestration
 - Uses **AWS CloudFormation** for Infrastructure as Code (IaC)
 - Creates a separate EMR cluster for batch workloads
+
+##  Airflow Ui
+
+![Airflow UI](Images/airflow_Ui.png)
 
 ---
 
@@ -66,6 +74,8 @@ Batch processing is executed through Airflow DAG workflows:
 ---
 
 # ⭐ Data Warehouse Model (Gold Layer)
+
+![Starschema Diagram](Images/starschema_diagram.png)
 
 The Gold layer is structured using a **Star Schema**:
 
