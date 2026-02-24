@@ -46,7 +46,7 @@ Instead of storing raw files separately, it:
 - Uses **AWS CloudFormation** for Infrastructure as Code (IaC)
 - Creates a separate EMR cluster for batch workloads
 
-##  Airflow Ui
+##  Airflow UI
 
 ![Airflow UI](Images/airflow_Ui.png)
 
